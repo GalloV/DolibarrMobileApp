@@ -58,41 +58,47 @@ class GeneratedBWidget extends StatelessWidget {
   }
 }
 
+Future<String> authenticate(String givenurl, String givenusername, String givenpassword ) async {
+
+  var url = Uri.parse('https://tpdolibarr.with3.dolicloud.com/api/index.php/login');
+  if(!givenurl.isEmpty) {
+    url = Uri.parse(givenurl);
+  }
+
+  final username = givenusername;
+  final password = givenpassword;
+  final response = await http.post(url, body: {
+    'login': username,
+    'password': password,
+  });
+  if (response.statusCode == 200) {
+    final sessionToken = response.body;
+    // Utilisez le jeton de session pour accéder à d'autres API de Dolibarr
+    return sessionToken;
+  } else {
+    throw Exception(
+        'Erreur lors de l\'authentification : ${response.statusCode}');
+  }
+}
+
 /* Component ContinueButton */
 
 class GeneratedContinueButtonWidget extends StatelessWidget {
   final urlController = TextEditingController();
   final _textController = TextEditingController();
   final _passwordController = TextEditingController();
-  Future<String> authenticate() async {
-    final url = urlController.text.isEmpty
-        ? Uri.parse(
-            'https://tpdolibarr.with3.dolicloud.com/api/index.php/login')
-        : Uri.parse(urlController.text);
-    final username = _textController.text;
-    final password = _passwordController.text;
-    final response = await http.post(url, body: {
-      'login': username,
-      'password': password,
-    });
-    if (response.statusCode == 200) {
-      final sessionToken = response.body;
-      // Utilisez le jeton de session pour accéder à d'autres API de Dolibarr
-      return sessionToken;
-    } else {
-      throw Exception(
-          'Erreur lors de l\'authentification : ${response.statusCode}');
-    }
-  }
+
 
   void _onContinueButtonPressed(BuildContext context) async {
     try {
-      final sessionToken = await authenticate();
+      final sessionToken = await authenticate(urlController.text, _textController.text, _passwordController.text);
       print(sessionToken);
       // Naviguez vers l'écran suivant en passant le jeton de session en tant que paramètre
       Navigator.pushNamed(context, '/GeneratedHomeWidget',
           arguments: sessionToken);
-    } catch (e) {}
+    } catch (e) {
+      Navigator.pushNamed(context, '/GeneratedAuthenticationWidget');
+      }
   }
 
   @override
