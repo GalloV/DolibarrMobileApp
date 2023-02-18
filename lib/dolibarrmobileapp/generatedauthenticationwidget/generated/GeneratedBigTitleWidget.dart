@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import '../../../helpers/svg/svg.dart';
@@ -952,63 +954,19 @@ class GeneratedMobileWidget extends StatelessWidget {
 
 /* Component PasswordInput */
 
-/* Password Input Component */
-class GeneratedPasswordInputWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 295.0,
-      height: 61.0,
-      child: Stack(
-        fit: StackFit.expand,
-        alignment: Alignment.center,
-        clipBehavior: Clip.none,
-        children: [
-          Positioned(
-            left: 0.0,
-            top: 61.0,
-            right: null,
-            bottom: null,
-            width: 295.0,
-            height: 1.0,
-            child: GeneratedRectangle2Widget(),
-          ),
-          Positioned(
-            left: 29.0,
-            top: 32.0,
-            right: null,
-            bottom: null,
-            width: 78.0,
-            height: 24.0,
-            child: GeneratedPasswordWidget(),
-          ),
-          Positioned(
-            left: 15.881256103515625,
-            top: 33.0,
-            right: null,
-            bottom: null,
-            width: 13.764702796936035,
-            height: 18.0,
-            child: GeneratedVectorWidget47(),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-/* Password Text Widget */
-class GeneratedPasswordWidget extends StatefulWidget {
-  const GeneratedPasswordWidget({Key? key}) : super(key: key);
+/* Component PasswordInput */
+class GeneratedPasswordInputWidget extends StatefulWidget {
+  const GeneratedPasswordInputWidget({Key? key}) : super(key: key);
 
   @override
   _GeneratedPasswordWidgetState createState() =>
       _GeneratedPasswordWidgetState();
 }
 
-class _GeneratedPasswordWidgetState extends State<GeneratedPasswordWidget> {
+class _GeneratedPasswordWidgetState
+    extends State<GeneratedPasswordInputWidget> {
   final _textController = TextEditingController();
-  bool _obscureText = true;
+  bool _isObscured = true;
 
   @override
   void dispose() {
@@ -1023,53 +981,69 @@ class _GeneratedPasswordWidgetState extends State<GeneratedPasswordWidget> {
     // Check that input is not empty
     if (sanitized.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Please enter a password.')),
+        SnackBar(content: Text('Veuillez entrer un mot de passe.')),
       );
     }
 
-    return sanitized;
+    // Prevent code injection
+    if (sanitized.contains(new RegExp(r'[^\w\s]'))) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+            content: Text(
+                'Le mot de passe ne peut pas contenir de caractères spéciaux.')),
+      );
+      return '';
+    }
+
+    // Limit input to 50 characters
+    return sanitized.substring(0, min(sanitized.length, 50));
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      controller: _textController,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        border: InputBorder.none,
-        suffixIcon: IconButton(
-          icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: TextField(
+            controller: _textController,
+            decoration: InputDecoration(
+              hintText: 'password',
+              border: InputBorder.none,
+            ),
+            maxLength: 50,
+            obscureText: _isObscured,
+            style: TextStyle(
+              height: 1.2102272510528564,
+              fontSize: 16.0,
+              fontFamily: 'Inter',
+              fontWeight: FontWeight.w300,
+              color: Color.fromARGB(255, 145, 149, 155),
+            ),
+            onChanged: (value) {
+              // Validate input
+              final sanitized = sanitizeInput(value);
+              if (value != sanitized) {
+                _textController.value = TextEditingValue(
+                  text: sanitized,
+                  selection: TextSelection.collapsed(offset: sanitized.length),
+                );
+              }
+            },
+          ),
+        ),
+        IconButton(
+          icon: Icon(
+            _isObscured ? Icons.visibility_off : Icons.visibility,
+            color: Color.fromARGB(255, 145, 149, 155),
+          ),
           onPressed: () {
             setState(() {
-              _obscureText = !_obscureText;
+              _isObscured = !_isObscured;
             });
           },
         ),
-      ),
-      obscureText: _obscureText,
-      style: TextStyle(
-        height: 1.2102272510528564,
-        fontSize: 16.0,
-        fontFamily: 'Inter',
-        fontWeight: FontWeight.w300,
-        color: Color.fromARGB(255, 145, 149, 155),
-      ),
-      onChanged: (value) {
-        // Validate input
-        final sanitized = sanitizeInput(value);
-        if (value != sanitized) {
-          _textController.value = TextEditingValue(
-            text: sanitized,
-            selection: TextSelection.collapsed(offset: sanitized.length),
-          );
-        }
-        // Handle unexpected behavior when password is longer than 10 characters
-        if (value.length > 10) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Password is too long.')),
-          );
-        }
-      },
+      ],
     );
   }
 }
@@ -1379,8 +1353,7 @@ class _GeneratedUsernameInputWidgetState
   }
 }
 
-/* Text username
-   */
+/* Text username */
 class GeneratedUsernameWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1399,8 +1372,7 @@ class GeneratedUsernameWidget extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1417,8 +1389,7 @@ class GeneratedVectorWidget extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1453,8 +1424,7 @@ class GeneratedVectorWidget2 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1471,8 +1441,7 @@ class GeneratedVectorWidget3 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget4 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1489,8 +1458,7 @@ class GeneratedVectorWidget4 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1507,8 +1475,7 @@ class GeneratedVectorWidget5 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget6 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1525,8 +1492,7 @@ class GeneratedVectorWidget6 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget7 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1543,8 +1509,7 @@ class GeneratedVectorWidget7 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget8 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1560,8 +1525,7 @@ class GeneratedVectorWidget8 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget9 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1596,8 +1560,7 @@ class GeneratedVectorWidget10 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget11 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1614,8 +1577,7 @@ class GeneratedVectorWidget11 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget12 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1632,8 +1594,7 @@ class GeneratedVectorWidget12 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget13 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1650,8 +1611,7 @@ class GeneratedVectorWidget13 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget14 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1668,8 +1628,7 @@ class GeneratedVectorWidget14 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget15 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1686,8 +1645,7 @@ class GeneratedVectorWidget15 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget16 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1704,8 +1662,7 @@ class GeneratedVectorWidget16 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget17 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1722,8 +1679,7 @@ class GeneratedVectorWidget17 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget18 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1740,8 +1696,8 @@ class GeneratedVectorWidget18 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
+
 class GeneratedVectorWidget19 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1758,8 +1714,7 @@ class GeneratedVectorWidget19 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector */
 class GeneratedVectorWidget20 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1776,8 +1731,7 @@ class GeneratedVectorWidget20 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget21 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -1830,8 +1784,7 @@ class GeneratedVectorWidget23 extends StatelessWidget {
   }
 }
 
-/* Vector Vector
-   */
+/* Vector Vector*/
 class GeneratedVectorWidget24 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
