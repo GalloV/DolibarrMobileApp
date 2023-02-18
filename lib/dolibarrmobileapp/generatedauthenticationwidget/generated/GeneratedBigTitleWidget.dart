@@ -952,7 +952,7 @@ class GeneratedMobileWidget extends StatelessWidget {
 
 /* Component PasswordInput */
 
-/* Component PasswordInput */
+/* Password Input Component */
 class GeneratedPasswordInputWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -997,7 +997,7 @@ class GeneratedPasswordInputWidget extends StatelessWidget {
   }
 }
 
-/* Text Password */
+/* Password Text Widget */
 class GeneratedPasswordWidget extends StatefulWidget {
   const GeneratedPasswordWidget({Key? key}) : super(key: key);
 
@@ -1008,6 +1008,7 @@ class GeneratedPasswordWidget extends StatefulWidget {
 
 class _GeneratedPasswordWidgetState extends State<GeneratedPasswordWidget> {
   final _textController = TextEditingController();
+  bool _obscureText = true;
 
   @override
   void dispose() {
@@ -1022,18 +1023,8 @@ class _GeneratedPasswordWidgetState extends State<GeneratedPasswordWidget> {
     // Check that input is not empty
     if (sanitized.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Veuillez entrer un mot de passe.')),
+        SnackBar(content: Text('Please enter a password.')),
       );
-    }
-
-    // Prevent code injection
-    if (sanitized.contains(new RegExp(r'[^\w\s]'))) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text(
-                'Le mot de passe ne peut pas contenir de caractères spéciaux.')),
-      );
-      return '';
     }
 
     return sanitized;
@@ -1044,10 +1035,18 @@ class _GeneratedPasswordWidgetState extends State<GeneratedPasswordWidget> {
     return TextField(
       controller: _textController,
       decoration: InputDecoration(
-        hintText: 'mot de passe',
+        hintText: 'Password',
         border: InputBorder.none,
+        suffixIcon: IconButton(
+          icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ),
       ),
-      obscureText: true,
+      obscureText: _obscureText,
       style: TextStyle(
         height: 1.2102272510528564,
         fontSize: 16.0,
@@ -1062,6 +1061,12 @@ class _GeneratedPasswordWidgetState extends State<GeneratedPasswordWidget> {
           _textController.value = TextEditingValue(
             text: sanitized,
             selection: TextSelection.collapsed(offset: sanitized.length),
+          );
+        }
+        // Handle unexpected behavior when password is longer than 10 characters
+        if (value.length > 10) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Password is too long.')),
           );
         }
       },
