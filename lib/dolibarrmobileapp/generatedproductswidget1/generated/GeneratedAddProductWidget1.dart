@@ -16,7 +16,7 @@ class GeneratedAddProductWidget1 extends StatelessWidget {
             ? []
             : [
                 BoxShadow(
-                  color: Color.fromARGB(63, 255, 255, 255),
+                  color: Color.fromARGB(8, 255, 255, 255),
                   offset: Offset(0.0, 0.0),
                   blurRadius: 4.0,
                 )
