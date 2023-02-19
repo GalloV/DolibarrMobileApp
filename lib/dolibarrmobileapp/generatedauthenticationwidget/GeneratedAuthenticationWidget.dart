@@ -56,8 +56,8 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: 62.0,
-                              top: 761.0,
+                              left: 42.0,
+                              top: 741.0,
                               right: null,
                               bottom: null,
                               width: 305.0,
@@ -95,7 +95,7 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: 52.0,
+                              left: 22.0,
                               top: 334.0,
                               right: null,
                               bottom: null,
@@ -104,7 +104,7 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               child: GeneratedBigTitleWidget(),
                             ),
                             Positioned(
-                              left: 62.0,
+                              left: 42.0,
                               top: 674.0,
                               right: null,
                               bottom: null,
@@ -113,7 +113,7 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               child: GeneratedTermsAndConditionWidget(),
                             ),
                             Positioned(
-                              left: 71.0,
+                              left: 41.0,
                               top: 109.0,
                               right: null,
                               bottom: null,
@@ -122,7 +122,7 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               child: GeneratedHeroImageWidget(),
                             ),
                             Positioned(
-                              left: 62.0,
+                              left: 42.0,
                               top: 390.0,
                               right: null,
                               bottom: null,
@@ -181,7 +181,7 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: 62.0,
+                              left: 42.0,
                               top: 594.0,
                               right: null,
                               bottom: null,
@@ -204,7 +204,7 @@ class GeneratedAuthenticationWidget extends StatelessWidget {
                               ),
                             ),
                             Positioned(
-                              left: 62.0,
+                              left: 42.0,
                               top: 492.0,
                               right: null,
                               bottom: null,

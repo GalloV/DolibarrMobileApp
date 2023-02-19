@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/GeneratedMenuWidget.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/GeneratedMiniLogoWidget.dart';
@@ -18,7 +16,11 @@ class GeneratedHomeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sessionToken = ModalRoute.of(context)!.settings.arguments as String;
+
+
+      final sessionToken = ModalRoute.of(context)!.settings.arguments != null ? ModalRoute.of(context)!.settings.arguments as String : "";
+
+
     return Material(
         child: ClipRRect(
       borderRadius: BorderRadius.zero,

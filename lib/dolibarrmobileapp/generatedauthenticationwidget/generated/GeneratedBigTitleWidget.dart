@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:localstorage/localstorage.dart';
 
 import '../../../helpers/svg/svg.dart';
 import '../../../helpers/transform/transform.dart';
@@ -60,6 +62,8 @@ class GeneratedBWidget extends StatelessWidget {
 
 Future<String> authenticate(String givenurl, String givenusername, String givenpassword ) async {
 
+  final LocalStorage storage = new LocalStorage('dolibarLocal');
+
   var url = Uri.parse('https://tpdolibarr.with3.dolicloud.com/api/index.php/login');
   if(!givenurl.isEmpty) {
     url = Uri.parse(givenurl);
@@ -72,9 +76,14 @@ Future<String> authenticate(String givenurl, String givenusername, String givenp
     'password': password,
   });
   if (response.statusCode == 200) {
-    final sessionToken = response.body;
+    final sessionToken = jsonDecode(response.body);
+    final item = sessionToken["success"];
+    print("zero");
+    print(item["token"]);
     // Utilisez le jeton de session pour accéder à d'autres API de Dolibarr
-    return sessionToken;
+    storage.setItem('token', item["token"]);
+    return item["token"];
+
   } else {
     throw Exception(
         'Erreur lors de l\'authentification : ${response.statusCode}');

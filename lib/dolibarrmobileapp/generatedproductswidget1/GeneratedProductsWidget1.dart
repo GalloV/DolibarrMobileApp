@@ -7,6 +7,9 @@ import 'package:flutterapp/dolibarrmobileapp/generatedproductswidget1/productdat
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:localstorage/localstorage.dart';
+
+import '../../helpers/svg/svg.dart';
 
 
 
@@ -14,15 +17,21 @@ import 'package:http/http.dart' as http;
 
 class GeneratedProductsWidget1 extends StatelessWidget {
 
-  Future<List<product_data>> makeRequest() async {
-    String url = 'http://localhost:8888/dolibarr/api/index.php/products';
-    String apiKey = '0a788a0a39d01c49736d0049477c55f23777583f';
+  Future<List<product_data>> makeRequest(BuildContext context,String sessiontoken) async {
 
+    final LocalStorage storage = LocalStorage("dolibarLocal");
+
+
+
+    String url = 'https://tpdolibarr.with3.dolicloud.com/api/index.php/products';
+    String apiKey = storage.getItem("token");
     var response = await http.get(Uri.parse(url), headers: {
       'DOLAPIKEY': apiKey,
     });
 
-
+    if(response.statusCode != 200) {
+      Navigator.pushNamed(context, '/GeneratedAuthenticationWidget');
+    }
 
     List products = jsonDecode(response.body);
 
@@ -42,8 +51,11 @@ class GeneratedProductsWidget1 extends StatelessWidget {
 
   @override
   Widget build  (BuildContext context) {
+    final sessionToken = ModalRoute.of(context)!.settings.arguments != null ? ModalRoute.of(context)!.settings.arguments as String : "";
+
+
     return FutureBuilder<List<product_data>>(
-      future: makeRequest(),
+      future: makeRequest(context,sessionToken),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final List<product_data> products = snapshot.data!;
@@ -157,7 +169,23 @@ class GeneratedProductsWidget1 extends StatelessWidget {
                                             bottom: null,
                                             width: 24.0,
                                             height: 18.0,
-                                            child: GeneratedBackButtonWidget3(),
+                                            child: GestureDetector(
+                                              onTap: () => Navigator.pushNamed(context, '/GeneratedHomeWidget', arguments: sessionToken),
+                                              child: Container(
+                                                width: 24.0,
+                                                height: 18.0,
+                                                child: SvgWidget(painters: [
+                                                  SvgPathPainter.stroke(
+                                                    2.0,
+                                                    strokeCap: StrokeCap.round,
+                                                    strokeJoin: StrokeJoin.miter,
+                                                  )
+                                                    ..addPath(
+                                                        'M0 9L-0.683941 8.27046C-0.885592 8.45951 -1 8.72359 -1 9C-1 9.27641 -0.885592 9.54049 -0.683941 9.72954L0 9ZM24 10C24.5523 10 25 9.55229 25 9C25 8.44771 24.5523 8 24 8L24 10ZM10.2839 0.729537C10.6869 0.351807 10.7073 -0.281029 10.3295 -0.683941C9.95181 -1.08685 9.31897 -1.10727 8.91606 -0.729537L10.2839 0.729537ZM8.91606 18.7295C9.31897 19.1073 9.95181 19.0869 10.3295 18.6839C10.7073 18.281 10.6869 17.6482 10.2839 17.2705L8.91606 18.7295ZM0 10L24 10L24 8L0 8L0 10ZM0.683941 9.72954L10.2839 0.729537L8.91606 -0.729537L-0.683941 8.27046L0.683941 9.72954ZM-0.683941 9.72954L8.91606 18.7295L10.2839 17.2705L0.683941 8.27046L-0.683941 9.72954Z')
+                                                    ..color = Color.fromARGB(255, 255, 255, 255),
+                                                ]),
+                                              ),
+                                            ),
                                           )
                                         ]),
                                   ))

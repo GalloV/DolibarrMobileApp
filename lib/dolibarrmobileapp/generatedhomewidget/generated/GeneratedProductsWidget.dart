@@ -5,16 +5,18 @@ import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/Gener
 import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/GeneratedRectangle83Widget4.dart';
 
 class GeneratedProductsWidget extends StatelessWidget {
+  final String sessionToken;
 
-  GeneratedProductsWidget(String sessionToken);
+  GeneratedProductsWidget(this.sessionToken);
 
 
   @override
   Widget build(BuildContext context) {
-
+    print("second");
+    print(sessionToken);
 
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/GeneratedProductsWidget1'),
+      onTap: () => Navigator.pushNamed(context, '/GeneratedProductsWidget1', arguments: sessionToken),
       child: Container(
         width: 126.0,
         height: 126.0,
