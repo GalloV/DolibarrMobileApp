@@ -4,11 +4,15 @@ import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/Gener
 import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/GeneratedVectorWidget58.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedhomewidget/generated/GeneratedRectangle83Widget4.dart';
 
-/* Group Products
-   */
 class GeneratedProductsWidget extends StatelessWidget {
+
+  GeneratedProductsWidget(String sessionToken);
+
+
   @override
   Widget build(BuildContext context) {
+
+
     return GestureDetector(
       onTap: () => Navigator.pushNamed(context, '/GeneratedProductsWidget1'),
       child: Container(
