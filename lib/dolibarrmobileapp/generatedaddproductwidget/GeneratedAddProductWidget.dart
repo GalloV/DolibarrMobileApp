@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedPageTitleWidget.dart';
+import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedNameInputWidget.dart';
+import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedPriceInputWidget.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedDescriptionInputWidget.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedButtonWidget.dart';
 import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedBackButtonWidget2.dart';
+import 'package:flutterapp/dolibarrmobileapp/generatedaddproductwidget/generated/GeneratedRefInputWidget.dart';
 
 
 class GeneratedAddProductWidget extends StatelessWidget {
