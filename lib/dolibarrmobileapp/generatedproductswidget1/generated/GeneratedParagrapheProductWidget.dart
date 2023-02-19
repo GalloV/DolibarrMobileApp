@@ -4,11 +4,7 @@ import 'package:flutterapp/dolibarrmobileapp/generatedproductswidget1/productdat
 import 'package:flutterapp/helpers/transform/transform.dart';
 import 'package:flutterapp/helpers/svg/svg.dart';
 
-
-
 class GeneratedParagrapheProductWidget extends StatelessWidget {
-
-
   final String name;
   final String desc;
   final String price;
@@ -23,7 +19,6 @@ class GeneratedParagrapheProductWidget extends StatelessWidget {
           fit: StackFit.expand,
           alignment: Alignment.center,
           clipBehavior: Clip.none,
-
           children: [
             Positioned(
               left: 360.0,
@@ -61,7 +56,7 @@ class GeneratedParagrapheProductWidget extends StatelessWidget {
               top: 37.0,
               right: null,
               bottom: null,
-              width: 150.0,
+              width: 170.0,
               height: 18.0,
               child: Text(
                 desc,
@@ -112,7 +107,6 @@ class GeneratedParagrapheProductWidget extends StatelessWidget {
           ]),
     );
   }
-
 }
 
 class SeparatorLine extends StatelessWidget {
