@@ -7,7 +7,7 @@ Application that Allow you to connect to your dolibarr account and use Dolibarr 
 
 In the Login Page : 
 
-there is a default dolibarr server conntected to the url,
-  -login : test
-  -passer : passerpasser
+there is a default dolibarr server conntected to the url,<br>
+  -login : test<br>
+  -passer : passerpasser<br>
 However you can enter the url of your own dolibarr server and enter the right login and password.
